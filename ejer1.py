@@ -11,17 +11,49 @@ import scipy as sp
 #from JSAnimation import IPython_display
 pylab.ion()
 
+edad=[]
+
 def Ro(e1, e2,beta,Neta,sigma): #######################  CALCULA EL Ro DE CADA NODO
     R0= (beta*sigma*Neta*(1-e1*u)*(1-e2*u))/(mu*c)
     #R0 = beta*Neta*sigma*(1-e1)*(1-e2)/(c*mu)
     return R0
+
+#cODIGO DE PRUEBA
+def pruebas():
+    for i in range (N):
+        edad.append(ran.randint(0, 75))#75 ya qyue es la esperanza de vida que hay en colombia
+        print (f"la edad del nodo {i+1} es de {edad[i]} ")
+        if edad[i] >= 0 and edad[i] <=14:
+            sigma=ran.randint(10, 20)
+            alpha=0.005
+            beta=ran.uniform(0, 0.002)
+            R0= (beta*sigma*Neta*(1-e1*u)*(1-e2*u))/(mu*c)
+            print(f"su s {sigma} a {alpha} b {beta} R0 {R0} ")
+        elif edad[i] > 14 and edad[i] <=24:
+            sigma=ran.randint(8, 15)
+            alpha=0.005
+            beta=ran.uniform(0, 0.002)
+            R0= (beta*sigma*Neta*(1-e1*u)*(1-e2*u))/(mu*c)
+            print(f"su s {sigma} a {alpha} b {beta} R0 {R0} ")
+        elif edad[i] > 24 and edad[i] <=49:
+            sigma=ran.randint(5, 10)
+            alpha=0.005
+            beta=ran.uniform(0, 0.002)
+            R0= (beta*sigma*Neta*(1-e1*u)*(1-e2*u))/(mu*c)
+            print(f"su s {sigma} a {alpha} b {beta} R0 {R0} ")
+        elif edad[i] > 50 and edad[i] <=100:
+            sigma=ran.randint(0, 5)
+            alpha=0.005
+            beta=ran.uniform(0, 0.002)
+            R0= (beta*sigma*Neta*(1-e1*u)*(1-e2*u))/(mu*c)
+            print(f"su s {sigma} a {alpha} b {beta} R0 {R0} ")
 
 ####################### ECREACIÓN DEL GRAFO
 def Grafo_Ley_Potencia(N,k,gamma):
     while True:
         s=[]
         while len(s)<N:
-            nextval = int(nx.utils.powerlaw_sequence(k, gamma)[0]) #N nodes, power-law exponent 'gamma'
+            nextval = int(nx.utils.powerlaw_sequence(k, gamma)[0]) #N nodes, power-law exponent 'gamma'# quien es gama?? sera aca lo de las edades
             if nextval!=0:
                 s.append(nextval)
         if sum(s)%2 == 0:
@@ -348,10 +380,12 @@ g=nx.powerlaw_cluster_graph(N, k,pr, seed=None)
 # POCISION DE LOS NODOS
 #position = nx.spectral_layout(g)
 
-#position = nx.spring_layout(g)
+#position = nx.spring_layout(g,seed=633)
 #position = nx.fruchterman_reingold_layout(g)
 
-position = nx.circular_layout(g)
+position = nx.kamada_kawai_layout(g)
+# position = nx.spiral_layout(g)
+# position = nx.circular_layout(g)
 # COLOR DE LOS NODOS
 color_map = {'St':'red', 'Ct':'yellowgreen', 'S':'cornflowerblue'}
 # DEFINICION E INICIALIZACION DE ATRIBUTOS DELA RED
