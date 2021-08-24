@@ -9,7 +9,7 @@ import math
 import pylab
 import scipy as sp
 #from JSAnimation import IPython_display
-pylab.ion()
+# pylab.ion()
 
 edad=[]
 
@@ -53,7 +53,7 @@ def Grafo_Ley_Potencia(N,k,gamma):
     while True:
         s=[]
         while len(s)<N:
-            nextval = int(nx.utils.powerlaw_sequence(k, gamma)[0]) #N nodes, power-law exponent 'gamma'# quien es gama?? sera aca lo de las edades
+            nextval = int(nx.utils.powerlaw_sequence(k, gamma)[0]) #N nodes, power-law exponent 'gamma'# 
             if nextval!=0:
                 s.append(nextval)
         if sum(s)%2 == 0:
@@ -124,7 +124,7 @@ def update_EIall(i,tt,TT,Tss,CC,VV,WW):
         t = np.linspace(ti,tf,n+1)
         h=(tf-ti)/n
         t, T, Ts, C, V, W, R0 = EDO(T0,Ts0,C0,V0,W0,t,h,e1[j],e2[j],beta[j],Neta[j],sigma[j])
-        for l in range(len(t)):
+        for l in range(len(t)):#condiciones iniciales
             pos=i*(len(t))+l
                 
             tt[j][pos] = t[l]
@@ -247,12 +247,12 @@ def FindTarget():
                     if (g.nodes[l]["Estado"]=='S'):
                         g[j][l]['weight']=Lambda
                         target=target+[l]
-                        L=L+[(l+1)*(j+1)*Lambda/avg_deg]
+                        L=L+[(l+1)*(j+1)*Lambda/avg_deg]#probabilidad una persona infectada trasmita la enfermedad a una susecctible
                     else:
                         g[j][l]['weight']=1
-            Emparejar(j,target,L,Lambda)
+            Emparejar(j,target,L)
 
-def Emparejar(j,target,L,Lambda):
+def Emparejar(j,target,L):
     if target != []:
         #print ('El nodo ', j, 'puede infectar a :',target)
         if ran.choice(['Si se empareja','No se empareja'])=='Si se empareja':
@@ -266,12 +266,12 @@ def Emparejar(j,target,L,Lambda):
                 g.nodes[pareja]["Estado"]='St'
 
 #######################CALCULA EL PROMEDIO DEL VECTOR x
-def prom(x):
-    suma=0
-    for i in range(len(x)):
-        suma=suma+x[i]
-    promedio=suma/len(x)
-    return promedio
+# def prom(x):
+#     suma=0
+#     for i in range(len(x)):
+#         suma=suma+x[i]
+#     promedio=suma/len(x)
+#     return promedio
 
 ####################### GRAFICA LAS DENSIDADES ACUMULADAS DE INFECTADOS Y SUSCEPTIBLES
 
@@ -286,21 +286,21 @@ def Plot_II(IST,ICT):
     plt.show()
 
 #######################  CREA UNA COPIA DEL GRAFO: NODO i -> NODO Pi
-def mapping(x): 
-    return 'P'+str(x+1)
+# def mapping(x): 
+#     return 'P'+str(x+1)
 
-def Modify_edges(g):
-    Nodo_a_cambiar=ran.randrange(N)
-    for l in range(N):
-        if l != Nodo_a_cambiar:
-            if g.has_edge(l,Nodo_a_cambiar):
-                if ran.choice(['Si hay ruptura','No hay ruptura'])=='Si hay ruptura':
-                    g.remove_edge(l,Nodo_a_cambiar)
-                    print('la personas ', l, ' y ',Nodo_a_cambiar, ' rompieron')
-            else:
-                if ran.choice(['Es nueva pareja','No es nueva pareja'])=='Es nueva pareja':
-                    g.add_edge(l,Nodo_a_cambiar)
-                    print('la personas ', l, ' y ',Nodo_a_cambiar, ' son pareja')
+# def Modify_edges(g):
+#     Nodo_a_cambiar=ran.randrange(N)
+#     for l in range(N):
+#         if l != Nodo_a_cambiar:
+#             if g.has_edge(l,Nodo_a_cambiar):
+#                 if ran.choice(['Si hay ruptura','No hay ruptura'])=='Si hay ruptura':
+#                     g.remove_edge(l,Nodo_a_cambiar)
+#                     print('la personas ', l, ' y ',Nodo_a_cambiar, ' rompieron')
+#             else:
+#                 if ran.choice(['Es nueva pareja','No es nueva pareja'])=='Es nueva pareja':
+#                     g.add_edge(l,Nodo_a_cambiar)
+#                     print('la personas ', l, ' y ',Nodo_a_cambiar, ' son pareja')
 
 
 ############################################################## INICIALIZACION DE PARAMETROS

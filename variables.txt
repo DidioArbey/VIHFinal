@@ -1,0 +1,7 @@
+edades
+parametro
+Neta= produccion viral
+sigma= construccion constante de celulas T
+alpha = muerte poblacion sitotoxica
+carga viral 
+beta = tasa de infeccion 

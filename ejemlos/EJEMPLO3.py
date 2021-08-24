@@ -13,10 +13,10 @@ def infectadoinicial(G):  #denicion de varibale infectados
     G.node[inf]['Estado']='I'  # estado de los infectados
     return G, inf
 
-#def diagnosticado(D):
-#    diag=ran.choce(inf)
-#    G.node[diag]['Estado']= 'D'
-#    return D, diag
+def diagnosticado(D):
+   diag=ran.choce(inf)
+   G.node[diag]['Estado']= 'D'
+   return D, diag
     
 def hallarpareja(inf):    # definir la variable hallar pareja   
     if ran.choice(['si', 'no']) == 'si':
