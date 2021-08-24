@@ -48,7 +48,7 @@ def rangoedades():
             beta=ran.uniform(0, 0.002)
             R0= (beta*sigma*Neta*(1-e1*u)*(1-e2*u))/(mu*c)
             print(f"su s {sigma} a {alpha} b {beta} R0 {R0} ")
-            return riesgo=np.random.rand(0,0.6)
+            # return riesgo=np.random.rand(0,0.6)
 
         elif edad[i] > 14 and edad[i] <=24:
             sigma=ran.randint(8, 15)
