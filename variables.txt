@@ -1,7 +1,32 @@
 edades
 parametro
+
+Modelo
 Neta= produccion viral
 sigma= construccion constante de celulas T
 alpha = muerte poblacion sitotoxica
 carga viral 
 beta = tasa de infeccion 
+R0=# basico de reproduccion 
+
+Red
+k= # promedio parejas sexuales
+gamma = distribucion de las parejas
+
+
+
+tasa de resesion 
+carga viral cambia conforme la edad?
+probabilidad una persona infectada trasmita la enfermedad a una susecctible depende de la edad o no?
+
+
+4(4-1)/2    12/2  6
+
+3/6
+1/2
+
+
+5(5-1)/2  10
+
+7/10
+                                                                                                    
