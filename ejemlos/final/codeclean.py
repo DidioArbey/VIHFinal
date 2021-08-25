@@ -418,8 +418,8 @@ print('El primer nodo infectado fue,', InInicial)
 Neta=14
 
 
-e1=np.linspace(0,1,500)
-e2=np.linspace(0,1,500)
+# e1=np.linspace(0,1,500)
+# e2=np.linspace(0,1,500)
 
 
 
