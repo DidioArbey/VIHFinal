@@ -19,7 +19,7 @@ mu=0.005                                                            #tasa de mue
 #beta=0.000025                                                       #tasa de infeccion ###cambia por edad
 #sigma=10                                                            #construccion constante de celulas T ### cambia por edad
 c=0.24                                                              #tasa de eliminacion del virus ##posible edad
-alpha=0.005                                                         #muerte poblacional sitotoxica
+# alpha=0.005                                                         #muerte poblacional sitotoxica
 
 
 #-----------------CALCULA EL Ro DE CADA NODO
@@ -34,31 +34,35 @@ def infectadoinicial(G):  #crear infectado
     return G, inf
 
 #--------------- sigma y beta de edades
-def pruebas():
+def rangoedades():
     edad=[]
-    sigmas=[]
-    betas=[]
-    alphas=[]
+    # diccionarios=dict()
     for i in range (N):
         edad.append(ran.randint(0, 75))#75 ya qyue es la esperanza de vida que hay en colombia
-        print (f"la edad del nodo {i+1} es de {edad[i]} ")
         if edad[i] >= 0 and edad[i] <=14:
-            betas.append(uniform(0,0.00005))
-            sigmas.append(uniform(0,20))
-            alphas.append(uniform(0,0.003))
+            beta=uniform(0,0.00005)
+            sigma=ran.randint(0, 20)
+            alpha=uniform(0,0.003)
+            lista=(sigma,beta,alpha)
+            return lista
         elif edad[i] > 14 and edad[i] <=24:
-            betas.append(uniform(0,0.00005))
-            sigmas.append(uniform(0,20))
-            alphas.append(uniform(0,0.003))
+            beta=uniform(0,0.00005)
+            sigma=ran.randint(0, 20)
+            alpha=uniform(0,0.003)
+            lista=(sigma,beta,alpha)
+            return lista
         elif edad[i] > 24 and edad[i] <=49:
-            betas.append(uniform(0,0.00005))
-            sigmas.append(uniform(0,20))
-            alphas.append(uniform(0,0.003))
+            beta=uniform(0,0.00005)
+            sigma=ran.randint(0, 20)
+            alpha=uniform(0,0.003)
+            lista=(sigma,beta,alpha)
+            return lista
         elif edad[i] > 50 and edad[i] <=100:
-            betas.append(uniform(0,0.00005))
-            sigmas.append(uniform(0,20))
-            alphas.append(uniform(0,0.003))
-    return sigmas,betas,alphas
+            beta=uniform(0,0.00005)
+            sigma=10
+            alpha=uniform(0,0.003)
+            lista=(sigma,beta,alpha)
+            return lista
 
 #--------------------hallar parejas
 
@@ -113,6 +117,13 @@ def FindInfected(G):
     return NoInfectadosST, NoInfectadosCT, NoSusceptibles
 
 #---------------------------------------------------------------------------
+prue=rangoedades()
+
+
+beta=prue[1]
+sigma=prue[0]
+alpha=prue[2]
+R0=Ro(e1,e2,beta,Neta,sigma)
 
 
 G = nx.erdos_renyi_graph(N,0.2)
