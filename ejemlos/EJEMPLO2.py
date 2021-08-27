@@ -38,7 +38,10 @@ G = nx.erdos_renyi_graph(N,0.2)
 for i in range(N):
     G.nodes[i]['Estado']='S'
 
-color_map={'S': 'green', 'I': 'red'}
+color_map = {'S':'green', 'I': 'red', 'Ct':'cornflowerblue'}
+
+
+# color_map={'S': 'green', 'I': 'red'} #hasta es solo infectados
 #plt.figure(num=None, figsize=(8, 6), dpi=80)
 pos=nx.circular_layout(G)
 #nx.draw(G,pos,node_size = 100,)

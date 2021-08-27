@@ -12,14 +12,34 @@ Neta=14                                                             #produccion 
 u=1                                                                 #proporcion de la terapia
 mu=0.005
 c=0.24
+edad=[]
+edad.append(ran.randint(0, 75))
+
+
+
+def riesgo(edad):
+    for i in range (N):
+        if edad[i] >= 0 and edad[i] <=14:
+            ries=uniform(0,1)
+            return ries
+        elif edad[i] > 14 and edad[i] <=24:
+            ries=uniform(0,1)
+            return ries
+        elif edad[i] > 24 and edad[i] <=49:
+            ries=uniform(0,1)
+            return ries
+        elif edad[i] > 50 and edad[i] <=100:
+            ries=uniform(0,1)
+            return ries
+
 
 
 
 
 
 # diccio={edad[i]:pruebas()}
-def rangoedades():
-    edad=[]
+def rangoedades(edad):
+    # edad=[]
     # diccionarios=dict()
     for i in range (N):
         edad.append(ran.randint(0, 75))#75 ya qyue es la esperanza de vida que hay en colombia
@@ -47,7 +67,7 @@ def rangoedades():
             alpha=uniform(0,0.003)
             lista=(edad[i],sigma,beta,alpha)
             return lista
-    
+
 
 def Ro(e1, e2,beta,Neta,sigma):
     R0= (beta*sigma*Neta*(1-e1*u)*(1-e2*u))/(mu*c)

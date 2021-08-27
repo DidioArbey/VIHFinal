@@ -32,6 +32,7 @@ def infectadoinicial(G):  #crear infectado
     inf=ran.randint(0,N)  #inf-> infectado y saca un numero aleatorio entre 0 y N
     G.nodes[inf]['Estado']='I'
     return G, inf
+# riesgo por edades
 
 #--------------- sigma y beta de edades
 def rangoedades():
@@ -43,26 +44,28 @@ def rangoedades():
             beta=uniform(0,0.00005)
             sigma=ran.randint(0, 20)
             alpha=uniform(0,0.003)
-            lista=(sigma,beta,alpha)
+            lista=(edad[i],sigma,beta,alpha)
             return lista
         elif edad[i] > 14 and edad[i] <=24:
             beta=uniform(0,0.00005)
             sigma=ran.randint(0, 20)
             alpha=uniform(0,0.003)
-            lista=(sigma,beta,alpha)
+            lista=(edad[i],sigma,beta,alpha)
             return lista
         elif edad[i] > 24 and edad[i] <=49:
             beta=uniform(0,0.00005)
             sigma=ran.randint(0, 20)
             alpha=uniform(0,0.003)
-            lista=(sigma,beta,alpha)
+            lista=(edad[i],sigma,beta,alpha)
             return lista
         elif edad[i] > 50 and edad[i] <=100:
             beta=uniform(0,0.00005)
             sigma=10
             alpha=uniform(0,0.003)
-            lista=(sigma,beta,alpha)
+            lista=(edad[i],sigma,beta,alpha)
             return lista
+
+
 
 #--------------------hallar parejas
 
@@ -86,44 +89,28 @@ def hallarpareja(inf):
     else:
         print('el infectado', inf, '  no se va a emparejar')
 
+def contratamiento(inf):
+    if ran.choice(['si', 'no']) == 'si':
+        print('el infectado', inf, ' va ingresar a tratamiento')
+        contrata=[]
+        for i in range(N):
+            if G.has_edge(i,inf):
+                contrata=contrata+[i]
+        tratamiento=ran.choice(contrata)
+        G.nodes[tratamiento]['Estado']='Ct'
+    else:
+        print('el infectado', inf, '  no tiene tratamiento')
 
 #Encontrar los nodos infectados en la red
 
-def FindInfected(G):
-    NoInfectadosST = 0
-    NoInfectadosCT = 0         ########         NTI=numero total de infectados
-    NoSusceptibles = 0
-    for i in range(N):
-        if (G.nodes[i]["V"]) > 0.0:
-            G.nodes[i]['Ro'] = Ro(e1[i],e2[i],beta[i],Neta[i],sigma[i])
-            if G.nodes[i]["Estado"] == 'Ct':
-                NoInfectadosCT +=1
-                PAT=uniform(0,1) #probabilidad de abandonar tto
-                if PAT<0.2:
-                    G.nodes[i]["Estado"] = 'St'
-                    e1[i]=0
-                    e2[i]=0
-                    NoInfectadosST +=1
-                    NoInfectadosCT -=1
-            else:
-                NoInfectadosST +=1
-                if G.nodes[i]["T"]<350: #probabilidad de inciar tto
-                    G.nodes[i]["Estado"] = 'Ct'
-                    e1[i]=uniform(0,1)
-                    e2[i]=uniform(0,1)
-                    NoInfectadosCT +=1
-                    NoInfectadosST -=1
-        NoSusceptibles = N-(NoInfectadosCT+NoInfectadosST)
-    return NoInfectadosST, NoInfectadosCT, NoSusceptibles
 
 #---------------------------------------------------------------------------
 prue=rangoedades()
-
-
-beta=prue[1]
-sigma=prue[0]
-alpha=prue[2]
-R0=Ro(e1,e2,beta,Neta,sigma)
+edad=prue[0]
+beta=prue[2]
+sigma=prue[1]
+alpha=prue[3]
+# R0=Ro(e1,e2,beta,Neta,sigma)
 
 
 G = nx.erdos_renyi_graph(N,0.2)
@@ -143,13 +130,16 @@ nx.draw(G,pos,node_color=[color_map[G.nodes[node]['Estado']] for node in G], nod
 plt.show()
 
 
-n=20 #numero de iteraciones
+n=10 #numero de iteraciones
 for i in range(n):
     print('iteracion: ', i)
     for j in range(N):
         if G.nodes[j]['Estado']=='I':
             hallarpareja(j)
-    nx.draw(G,pos,node_color=[color_map[G.nodes[node]['Estado']] for node in G], node_size = 100)
+    for k in range(N):
+        if G.nodes[k]['Estado']=='Ct':
+            contratamiento(k)
+    nx.draw(G,pos,node_color=[color_map[G.nodes[node]['Estado']] for node in G], node_size = 50)
     plt.show()
 
 # Graph.neighbors():	Return an iterator over all neighbors of node n.
